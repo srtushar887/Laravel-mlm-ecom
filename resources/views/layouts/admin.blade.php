@@ -174,12 +174,12 @@
                     </li>
 
 
-                    <li>
-                        <a href="{{route('admin.users.account.activation')}}" class=" waves-effect">
-                            <i class="ri-calendar-2-line"></i>
-                            <span>User Account Activation</span>
-                        </a>
-                    </li>
+{{--                    <li>--}}
+{{--                        <a href="{{route('admin.users.account.activation')}}" class=" waves-effect">--}}
+{{--                            <i class="ri-calendar-2-line"></i>--}}
+{{--                            <span>User Account Activation</span>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
 
                     <li>
                         <a href="{{route('admin.users.account.verify')}}" class=" waves-effect">

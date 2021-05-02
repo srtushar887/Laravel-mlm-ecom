@@ -86,6 +86,14 @@
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
+                            <label>Balance Type</label>
+                            <select class="form-control" name="balance_type">
+                                <option value="1">Current Balance</option>
+                                <option value="2">Income Balance</option>
+                                <option value="3">Shopping Balance</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label>Enter Amount</label>
                             <input type="number" class="form-control"  name="amount">
                             <input type="hidden" class="form-control addbalance" name="add_balance">

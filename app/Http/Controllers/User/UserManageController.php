@@ -105,6 +105,7 @@ class UserManageController extends Controller
             $send_money = User::where('id',$request->user_id)->first();
             $send_money->shopping_balance = $send_money->shopping_balance + $request->amount;
             $send_money->is_account_veify = 1;
+            $send_money->admin_approved = 1;
             $send_money->save();
 
             $current_user =  User::where('id',Auth::user()->id)->first();

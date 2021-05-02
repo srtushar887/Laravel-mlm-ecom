@@ -15,6 +15,116 @@
     </div>
     <!-- end page title -->
 
+    @if (Auth::user()->is_account_veify == 1 && Auth::user()->account_type == 0)
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <form class="needs-validation" novalidate="" action="#" enctype="multipart/form-data" method="post">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <div class="alert alert-warning" role="alert">
+                                        @if (Auth::user()->admin_approved == 1)
+                                        Your account is not activated now . Please Active your account .
+                                        @elseif (Auth::user()->admin_approved == 3)
+                                            Your account is not activated now . Please Active your account .
+                                        @elseif (Auth::user()->admin_approved == 2)
+                                            <strong>Verified Account</strong>.
+                                        @elseif (Auth::user()->admin_approved == 0)
+                                            Your account is not activated now . Please Active your account .
+                                        @else
+                                            Your account is not activated now . Please Active your account .
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    @if (Auth::user()->admin_approved == 1)
+                                        <button class="btn btn-primary" type="button">Submited</button>
+                                    @elseif (Auth::user()->admin_approved == 3)
+                                        <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" type="button">Re-Submit</button>
+                                    @elseif (Auth::user()->admin_approved == 2)
+
+                                    @elseif (Auth::user()->admin_approved == 3)
+                                        <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" type="button">Re-Submit</button>
+                                    @elseif (Auth::user()->admin_approved == 0)
+                                        <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" type="button">Activate Account</button>
+                                    @else
+                                        <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" type="button">Activate Account</button>
+                                    @endif
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- end card -->
+            </div> <!-- end col -->
+
+        </div>
+    @elseif (Auth::user()->is_account_veify == 1 && Auth::user()->account_type == 1)
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <form class="needs-validation" novalidate="" action="#" enctype="multipart/form-data" method="post">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <div class="alert alert-warning" role="alert">
+                                        @if (Auth::user()->admin_approved == 0)
+                                            Your account is not activated now .
+                                        @else
+                                            Your account has been verified .
+                                        @endif
+
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- end card -->
+            </div> <!-- end col -->
+
+        </div>
+
+    @endif
+
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Activate Account</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="{{route('user.acccount.activation.submit')}}" method="post">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <img src="{{asset('assets/admin/images/wht.jpeg')}}" style="height: 200px;width: 100%">
+                        </div>
+                        <div class="form-group">
+                            <label>Amount</label>
+                            <input type="number" class="form-control" name="amount" value="10" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Sender Address</label>
+                            <input type="text" class="form-control" name="sender_address">
+                        </div>
+                        <div class="form-group">
+                            <label>TRX ID</label>
+                            <input type="text" class="form-control" name="trx_id">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
 
 
@@ -52,95 +162,6 @@
 
 
 
-    @if (Auth::user()->is_account_veify == 1 && Auth::user()->account_type == 0)
-    <div class="row">
-        <div class="col-xl-12">
-            <div class="card">
-                <div class="card-body">
-                    <form class="needs-validation" novalidate="" action="#" enctype="multipart/form-data" method="post">
-                        <div class="row">
-                            <div class="col-md-10">
-                                <div class="alert alert-warning" role="alert">
-                                   Your account is not activated now . Please Active your account .
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                @if (Auth::user()->admin_approved == 1)
-                                    <button class="btn btn-primary" type="button">Submited</button>
-                                @elseif (Auth::user()->admin_approved == 3)
-                                    <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" type="button">Re-Submit</button>
-                                @else
-                                    <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" type="button">Activate Account</button>
-                                @endif
-
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <!-- end card -->
-        </div> <!-- end col -->
-
-    </div>
-    @elseif (Auth::user()->is_account_veify == 1 && Auth::user()->account_type == 1)
-        <div class="row">
-            <div class="col-xl-12">
-                <div class="card">
-                    <div class="card-body">
-                        <form class="needs-validation" novalidate="" action="#" enctype="multipart/form-data" method="post">
-                            <div class="row">
-                                <div class="col-md-10">
-                                    <div class="alert alert-warning" role="alert">
-                                        Your account is not activated now .
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <!-- end card -->
-            </div> <!-- end col -->
-
-        </div>
-
-    @endif
-
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Activate Account</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form action="{{route('user.acccount.activation.submit')}}" method="post">
-                    @csrf
-                <div class="modal-body">
-                    <div class="form-group">
-                       <img src="{{asset('assets/admin/images/wht.jpeg')}}" style="height: 200px;width: 100%">
-                    </div>
-                    <div class="form-group">
-                        <label>Amount</label>
-                        <input type="number" class="form-control" name="amount" value="10" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label>Sender Address</label>
-                        <input type="text" class="form-control" name="sender_address">
-                    </div>
-                    <div class="form-group">
-                        <label>TRX ID</label>
-                        <input type="text" class="form-control" name="trx_id">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
-                </form>
-            </div>
-        </div>
-    </div>
 
 
 

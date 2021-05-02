@@ -110,7 +110,14 @@ class AdminUserController extends Controller
     public function user_add_balance(Request $request)
     {
         $user = User::where('id',$request->add_balance)->first();
-        $user->current_balance = $user->current_balance + $request->amount;
+        if ($request->balance_type == 1) {
+            $user->current_balance = $user->current_balance + $request->amount;
+        }elseif ($request->balance_type == 2){
+            $user->income_balance = $user->income_balance + $request->amount;
+        }else{
+            $user->shopping_balance = $user->shopping_balance + $request->amount;
+        }
+
         $user->save();
         return back()->with('success','Balance Successfully Added');
     }
@@ -135,38 +142,7 @@ class AdminUserController extends Controller
             ->make(true);
     }
 
-    public function user_account_activation_details($id)
-    {
-        $user = User::where('id',$id)->first();
-        return view('admin.user.userAccountActivationDetails',compact('user'));
-    }
 
-    public function user_account_activation_details_save(Request $request)
-    {
-        if ($request->status == 1) {
-            $user= User::where('id',$request->edit_user)->first();
-            $user->admin_approved = $request->status;
-            $user->save();
-
-            $created_user = User::where('id',$user->created_by_id)->first();
-            if ($created_user) {
-                $created_user->income_balance = $created_user->income_balance + 25;
-                $created_user->save();
-            }
-
-
-            return back()->with('success','Account Apporved');
-
-        }elseif ($request->status == 2){
-            $user= User::where('id',$request->edit_user)->first();
-            $user->admin_approved = $request->status;
-            $user->save();
-
-            return back()->with('success','Account Rejected');
-        }else{
-            return back()->with('alert','Please select account status');
-        }
-    }
 
 
     public function verify_account()
@@ -194,6 +170,7 @@ class AdminUserController extends Controller
 
             $user = User::where('id',$verify_user->user_id)->first();
             $user->is_account_veify = 1;
+            $user->admin_approved = 2;
             $user->save();
 
             return back()->with('success','Account Verified Successfull');
