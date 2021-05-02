@@ -87,23 +87,7 @@ class CustomLoginController extends Controller
             $user_update->my_ref_id = Str::random(5).rand(0,9).rand(0,9).$new_user->id.rand(000,999).Str::random(5).rand(0000,9999);
             $user_update->save();
 
-            $gen = general_setting::first();
-            $url = "http://66.45.237.70/api.php";
-            $number= $new_user->phone_number;
-            $text="Your ".$gen->site_name.' '."OPT Code is :".$new_user->ver_code;
-            $data= array(
-             
-                'number'=>"$number",
-                'message'=>"$text"
-            );
-
-            $ch = curl_init(); // Initialize cURL
-            curl_setopt($ch, CURLOPT_URL,$url);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            $smsresult = curl_exec($ch);
-            $p = explode("|",$smsresult);
-            $sendstatus = $p[0];
+          
 
 //            return redirect(route('login'))->with('success',"We have send you a OTP to your phone number. Please verify your OTP ");
             return redirect(route('verify.otp'))->with('success',"We have send you a OTP to your phone number. Please verify your OTP ");
@@ -198,23 +182,7 @@ class CustomLoginController extends Controller
             $user_update->save();
         }
 
-        $gen = general_setting::first();
-        $url = "http://66.45.237.70/api.php";
-        $number= $new_user->phone_number;
-        $text="Your ".$gen->site_name.' '."OPT Code is :".$new_user->ver_code;
-        $data= array(
 
-            'number'=>"$number",
-            'message'=>"$text"
-        );
-
-        $ch = curl_init(); // Initialize cURL
-        curl_setopt($ch, CURLOPT_URL,$url);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $smsresult = curl_exec($ch);
-        $p = explode("|",$smsresult);
-        $sendstatus = $p[0];
 
 //            return redirect(route('login'))->with('success',"We have send you a OTP to your phone number. Please verify your OTP ");
         return redirect(route('verify.otp'))->with('success',"We have send you a OTP to your phone number. Please verify your OTP ");
